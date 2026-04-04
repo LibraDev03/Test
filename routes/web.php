@@ -15,6 +15,7 @@ Route::get('/hotel/{hotel_id}', [HotelController::class, 'showDetail'])->name('h
 Route::get('/admin', [AdminTopController::class, 'index'])->name('adminTop');
 Route::get('/admin/hotel/search', [AdminHotelController::class, 'showSearch'])->name('adminHotelSearchPage');
 Route::get('/admin/hotel/edit', [AdminHotelController::class, 'showEdit'])->name('adminHotelEditPage');
+Route::post('/admin/hotel/update-ajax', [AdminHotelController::class, 'updateAjax'])->name('adminHotelUpdateAjax');
 Route::get('/admin/hotel/create', [AdminHotelController::class, 'showCreate'])->name('adminHotelCreatePage');
 Route::post('/admin/hotel/search/result', [AdminHotelController::class, 'searchResult'])->name('adminHotelSearchResult');
 Route::post('/admin/hotel/edit', [AdminHotelController::class, 'edit'])->name('adminHotelEditProcess');
