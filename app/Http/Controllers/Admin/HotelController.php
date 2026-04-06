@@ -16,7 +16,8 @@ class HotelController extends Controller
 
     public function showSearch(): View
     {
-        return view('admin.hotel.search');
+        $prefectures = Prefecture::all();
+        return view('admin.hotel.search', compact('prefectures'));
     }
 
     public function showResult(): View
@@ -41,16 +42,23 @@ class HotelController extends Controller
 
     /** post methods */
 
-    public function searchResult(Request $request): View
+    public function searchResult(Request $request): View|RedirectResponse
     {
-        $var = [];
+        $hotelName = $request->input('hotel_name');
+        $prefectureId = $request->input('prefecture_id');
 
-        $hotelNameToSearch = $request->input('hotel_name');
-        $hotelList = Hotel::getHotelListByName($hotelNameToSearch);
+        if (empty($hotelName) && empty($prefectureId)) {
+            return back()->withErrors([
+                'search' => '何も入力されていません'
+            ]);
+        }
 
-        $var['hotelList'] = $hotelList;
+        $hotelList = Hotel::getHotelList($hotelName, $prefectureId);
 
-        return view('admin.hotel.result', $var);
+        // 🔥 thêm dòng này
+        $prefectures = Prefecture::all();
+
+        return view('admin.hotel.result', compact('hotelList', 'prefectures'));
     }
 
     public function edit(Request $request): RedirectResponse

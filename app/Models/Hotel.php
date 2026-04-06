@@ -31,14 +31,19 @@ class Hotel extends Model
      * @param string $hotelName
      * @return array
      */
-    static public function getHotelListByName(string $hotelName): array
+    public static function getHotelList(?string $hotelName, ?string $prefectureId): array
     {
-        $result = Hotel::where('hotel_name', '=', $hotelName)
-            ->with('prefecture')
-            ->get()
-            ->toArray();
+        $query = self::with('prefecture');
 
-        return $result;
+        if ($hotelName) {
+            $query->where('hotel_name', 'like', '%' . $hotelName . '%');
+        }
+
+        if ($prefectureId) {
+            $query->where('prefecture_id', $prefectureId);
+        }
+
+        return $query->get()->toArray();
     }
 
     /**
