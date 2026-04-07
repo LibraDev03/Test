@@ -13,7 +13,7 @@
         <h2 class="title">検索画面</h2>
         <hr>
         <div class="search-hotel-name">
-            <form action="{{ route('adminHotelSearchResult') }}" method="post">
+            <form action="{{ route('adminHotelSearchResult') }}" method="get">
                 @csrf
                 <div style="display: flex; gap: 20px">
 

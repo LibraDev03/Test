@@ -53,9 +53,19 @@ class HotelController extends Controller
             ]);
         }
 
-        $hotelList = Hotel::getHotelList($hotelName, $prefectureId);
+        $query = Hotel::query();
 
-        // 🔥 thêm dòng này
+        if ($hotelName) {
+            $query->where('hotel_name', 'like', '%' . $hotelName . '%');
+        }
+
+        if ($prefectureId) {
+            $query->where('prefecture_id', $prefectureId);
+        }
+
+        // paginate 10 kết quả / trang
+        $hotelList = $query->paginate(10)->withQueryString(); 
+
         $prefectures = Prefecture::all();
 
         return view('admin.hotel.result', compact('hotelList', 'prefectures'));

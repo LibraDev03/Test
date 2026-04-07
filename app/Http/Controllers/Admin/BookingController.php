@@ -15,7 +15,6 @@ class BookingController extends Controller
     
     public function searchResult(Request $request)
     {
-        // validate: nếu tất cả đều rỗng → lỗi
         if (
             !$request->customer_name &&
             !$request->customer_contact &&
@@ -45,7 +44,8 @@ class BookingController extends Controller
             $query->where('checkout_time', '<=', $request->checkout_time);
         }
 
-        $bookings = $query->with('hotel')->get();
+        // paginate 10 / trang + giữ query string
+        $bookings = $query->with('hotel')->paginate(10)->withQueryString();
 
         return view('admin.booking.result', compact('bookings'));
     }

@@ -11,7 +11,7 @@
         <hr>
 
         <div class="search-hotel-name">
-            <form action="{{ route('adminBookingSearchResult') }}" method="POST">
+            <form action="{{ route('adminBookingSearchResult') }}" method="GET">
                 @csrf
                 <div style="display: flex; gap: 20px">
 

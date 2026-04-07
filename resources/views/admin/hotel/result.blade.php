@@ -1,5 +1,6 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/litera/bootstrap.min.css" rel="stylesheet">
 @extends('admin.hotel.search')
-
 @section('search_results')
     <div class="page-wrapper search-page-wrapper">
         <div class="search-result">
@@ -55,6 +56,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center mt-3">
+                    {{ $hotelList->links('pagination::bootstrap-5') }}
+                </div>
             @else
                 <p>検索結果がありません</p>
             @endif
