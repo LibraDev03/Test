@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BookingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\HotelController;
@@ -21,3 +22,6 @@ Route::post('/admin/hotel/search/result', [AdminHotelController::class, 'searchR
 Route::post('/admin/hotel/edit', [AdminHotelController::class, 'edit'])->name('adminHotelEditProcess');
 Route::post('/admin/hotel/create', [AdminHotelController::class, 'create'])->name('adminHotelCreateProcess');
 Route::post('/admin/hotel/delete', [AdminHotelController::class, 'delete'])->name('adminHotelDeleteProcess');
+
+Route::get('/admin/bookings/search', [BookingController::class, 'showSearch'])->name('adminBookingSearchPage');
+Route::post('/admin/bookings/search/result', [BookingController::class, 'searchResult'])->name('adminBookingSearchResult');

@@ -57,7 +57,7 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align:center;">
-                    <button type="submit">Xem trước / Confirm</button>
+                    <button type="submit">プレビュー</button>
                 </td>
             </tr>
         </table>

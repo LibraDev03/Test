@@ -174,7 +174,7 @@ class HotelController extends Controller
         }
 
         $hotel->delete();
-        
-       return redirect()->back()->with('success', '削除しました');
+
+        return redirect()->route('adminTop')->with('success', '削除しました');
     }
 }
