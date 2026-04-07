@@ -66,6 +66,12 @@ class HotelController extends Controller
         $request->validate([
             'hotel_name' => 'required|max:255',
             'prefecture_id' => 'required|exists:prefectures,prefecture_id'
+        ], [
+            'hotel_name.required' => 'ホテル名を入力してください',
+            'hotel_name.max' => 'ホテル名は255文字以内で入力してください',
+
+            'prefecture_id.required' => '都道府県を選択してください',
+            'prefecture_id.exists' => '正しい都道府県を選択してください',
         ]);
 
         $hotel = Hotel::findOrFail($request->hotel_id);
@@ -98,6 +104,19 @@ class HotelController extends Controller
                 'hotel_name' => 'required|max:255',
                 'prefecture_id' => 'required|exists:prefectures,prefecture_id',
                 'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+            ], [
+                'hotel_id.required' => 'ホテルIDが不正です',
+                'hotel_id.exists' => 'ホテルが存在しません',
+
+                'hotel_name.required' => 'ホテル名を入力してください',
+                'hotel_name.max' => 'ホテル名は255文字以内で入力してください',
+
+                'prefecture_id.required' => '都道府県を選択してください',
+                'prefecture_id.exists' => '正しい都道府県を選択してください',
+
+                'image.image' => '画像ファイルを選択してください',
+                'image.mimes' => 'jpg, jpeg, png, webp形式のみアップロード可能です',
+                'image.max' => '画像サイズは2MB以内にしてください'
             ]);
         } catch (ValidationException $e) {
             return response()->json([
@@ -133,7 +152,17 @@ class HotelController extends Controller
         $request->validate([
             'hotel_name' => 'required|max:255',
             'prefecture_id' => 'required|exists:prefectures,prefecture_id',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+        ], [
+            'hotel_name.required' => 'ホテル名を入力してください',
+            'hotel_name.max' => 'ホテル名は255文字以内で入力してください',
+
+            'prefecture_id.required' => '都道府県を選択してください',
+            'prefecture_id.exists' => '正しい都道府県を選択してください',
+
+            'image.image' => '画像ファイルを選択してください',
+            'image.mimes' => 'jpg, jpeg, png形式のみアップロード可能です',
+            'image.max' => '画像サイズは2MB以内にしてください'
         ]);
 
         $filePath = null;
@@ -159,6 +188,10 @@ class HotelController extends Controller
     {
         $request->validate([
             'hotel_id' => 'required|integer|exists:hotels,hotel_id'
+        ], [
+            'hotel_id.required' => 'ホテルIDが必要です',
+            'hotel_id.integer' => 'ホテルIDの形式が不正です',
+            'hotel_id.exists' => 'ホテルが存在しません'
         ]);
 
         $hotel = Hotel::findOrFail($request->hotel_id);

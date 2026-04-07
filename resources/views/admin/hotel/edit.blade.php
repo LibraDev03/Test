@@ -68,6 +68,7 @@
 <div id="confirmModal">
     <div class="modal-content">
         <h3>確認</h3>
+        <div id="modalErrors" style="color:red; margin-bottom:10px;"></div>
         <table>
             <tr><td>ホテル名</td><td id="cHotelName"></td></tr>
             <tr><td>都道府県</td><td id="cPrefecture"></td></tr>
@@ -90,6 +91,7 @@
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            document.getElementById('modalErrors').innerHTML = '';
             cHotelName.innerText = form.hotel_name.value;
             cPrefecture.innerText = form.prefecture_id.options[form.prefecture_id.selectedIndex].text;
 
@@ -105,7 +107,10 @@
             modal.style.display = 'block';
         });
 
-        document.getElementById('cancelBtn').addEventListener('click', () => modal.style.display = 'none');
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.getElementById('modalErrors').innerHTML = '';
+        });
 
         document.getElementById('confirmUpdateBtn').addEventListener('click', function(){
             const formData = new FormData(form);
@@ -120,7 +125,19 @@
 
                 if (!res.ok) {
                     console.log(data); // 👈 debug
-                    alert('Validation lỗi: ' + JSON.stringify(data.errors));
+                    // alert('Validation lỗi: ' + JSON.stringify(data.errors));
+                    const errorBox = document.getElementById('modalErrors');
+                    errorBox.innerHTML = ''; // clear lỗi cũ
+
+                    const errors = data.message;
+
+                    for (let field in errors) {
+                        errors[field].forEach(msg => {
+                            const div = document.createElement('div');
+                            div.innerText = msg;
+                            errorBox.appendChild(div);
+                        });
+                    }
                     return;
                 }
 

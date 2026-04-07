@@ -10,7 +10,7 @@
 @section('main_contents')
 
 <div class="container">
-    <h2 class="title">ホテル追加</h2>
+    <h2 class="title titleCreate">ホテル追加</h2>
 
     @if ($errors->any())
         <div style="color:red; margin-bottom: 15px;">
